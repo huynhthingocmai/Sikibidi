@@ -1727,6 +1727,20 @@ function OrionLib:CreateImage(cfg)
     img.BackgroundTransparency = 1
     img.Image = cfg.Link or ""
     img.Visible = true
+
+    -- Debug
+    print("[OrionLib] CreateImage -> Link:", cfg.Link)
+
+    -- Preload ảnh để đảm bảo hiển thị
+    local suc, err = pcall(function()
+        game:GetService("ContentProvider"):PreloadAsync({img})
+    end)
+    if suc then
+        print("[OrionLib] Ảnh đã preload xong:", cfg.Link)
+    else
+        warn("[OrionLib] Lỗi preload:", err)
+    end
+
     return img
 end
 
